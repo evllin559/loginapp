@@ -1,0 +1,524 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f2ea;
+  --surface: #ffffff;
+  --surface-soft: #fff8ec;
+  --text: #1f2933;
+  --muted: #5f6c7b;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent: #f97316;
+  --success: #15803d;
+  --danger: #b91c1c;
+  --border: #e6dccb;
+  --shadow: 0 24px 60px rgba(31, 41, 51, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+.button {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+button:hover,
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.hero {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(249, 115, 22, 0.22), transparent 34%),
+    linear-gradient(135deg, #eef4ff 0%, #fff6e8 100%);
+  padding: 24px;
+}
+
+.topbar,
+.hero-grid,
+.section,
+footer {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+
+.brand {
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.nav-links {
+  display: flex;
+  gap: 18px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  min-height: 520px;
+  align-items: center;
+  padding: 48px 0 72px;
+}
+
+.hero-copy h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.hero-text {
+  max-width: 620px;
+  margin: 24px 0;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-actions,
+.card-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button,
+.speak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+}
+
+.primary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 14px 24px rgba(37, 99, 235, 0.22);
+}
+
+.primary:hover {
+  background: var(--primary-dark);
+}
+
+.secondary {
+  background: #ffffff;
+  color: var(--primary-dark);
+  border: 1px solid var(--border);
+}
+
+.progress-card,
+.lesson-card,
+.flashcard-panel,
+.quiz-panel,
+.daily-plan {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+}
+
+.progress-card {
+  padding: 32px;
+}
+
+.progress-card strong {
+  display: block;
+  margin: 8px 0 20px;
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+.card-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  height: 12px;
+  overflow: hidden;
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: inherit;
+}
+
+.section {
+  padding: 72px 0 0;
+}
+
+.section-heading {
+  margin-bottom: 28px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: -0.04em;
+}
+
+.section-heading.compact h2 {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.method-card {
+  min-height: 220px;
+  padding: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+}
+
+.method-card span {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 28px;
+  place-items: center;
+  background: var(--surface-soft);
+  border-radius: 16px;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.method-card h3,
+.lesson-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.45rem;
+}
+
+.method-card p,
+.lesson-card p,
+.progress-card p,
+footer p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.learning-panel {
+  padding-bottom: 0;
+}
+
+.lesson-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+}
+
+.lesson-list {
+  display: grid;
+  gap: 12px;
+  align-self: start;
+}
+
+.lesson-tab {
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-align: left;
+}
+
+.lesson-tab.active {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 16px 28px rgba(37, 99, 235, 0.2);
+}
+
+.lesson-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+  gap: 28px;
+  padding: 30px;
+}
+
+.phrase-box {
+  padding: 24px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.phrase-box span {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.phrase-box strong {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  letter-spacing: -0.04em;
+}
+
+.speak-button {
+  margin-top: 18px;
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.phrase-list {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.phrase-list li {
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+}
+
+.phrase-list strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.phrase-list span {
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.flashcard-panel,
+.quiz-panel,
+.daily-plan {
+  padding: 30px;
+}
+
+.flashcard {
+  min-height: 250px;
+  padding: 30px;
+  background: linear-gradient(135deg, var(--primary), #60a5fa);
+  border-radius: 28px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.flashcard span {
+  display: block;
+  margin-bottom: 48px;
+  opacity: 0.8;
+  font-weight: 800;
+}
+
+.flashcard strong {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3.7rem);
+  line-height: 1;
+}
+
+.flashcard p {
+  display: none;
+  margin: 22px 0 0;
+  font-size: 1.4rem;
+}
+
+.flashcard.revealed p {
+  display: block;
+}
+
+.flashcard.revealed span {
+  opacity: 1;
+}
+
+.card-controls {
+  margin-top: 18px;
+}
+
+.quiz-question {
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.quiz-options button {
+  padding: 16px 18px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-align: left;
+}
+
+.quiz-options button.correct {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: var(--success);
+}
+
+.quiz-options button.wrong {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: var(--danger);
+}
+
+.quiz-feedback {
+  min-height: 28px;
+  font-weight: 800;
+}
+
+.daily-plan {
+  margin-bottom: 72px;
+}
+
+.plan-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-list li {
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.plan-list strong {
+  color: var(--primary-dark);
+}
+
+footer {
+  padding: 0 0 32px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hero-grid,
+  .lesson-layout,
+  .lesson-card,
+  .practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .method-grid,
+  .phrase-list,
+  .plan-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-grid {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding: 16px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+
+  .section {
+    padding-top: 52px;
+  }
+
+  .method-grid,
+  .phrase-list,
+  .plan-list {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-card,
+  .lesson-card,
+  .flashcard-panel,
+  .quiz-panel,
+  .daily-plan {
+    border-radius: 24px;
+    padding: 22px;
+  }
+}

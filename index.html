@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingles Facil</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Navegacao principal">
+        <a class="brand" href="#inicio">Ingles Facil</a>
+        <div class="nav-links">
+          <a href="#metodo">Metodo</a>
+          <a href="#licoes">Licoes</a>
+          <a href="#pratica">Pratica</a>
+        </div>
+      </nav>
+
+      <section id="inicio" class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Aprenda sem complicacao</p>
+          <h1>Fale ingles com frases simples todos os dias.</h1>
+          <p class="hero-text">
+            Um sistema pratico para iniciantes: aprenda vocabulario, ouca a
+            pronuncia, monte frases uteis e teste seu progresso em poucos
+            minutos por dia.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#licoes">Comecar agora</a>
+            <a class="button secondary" href="#plano">Ver plano diario</a>
+          </div>
+        </div>
+
+        <aside class="progress-card" aria-label="Resumo do progresso">
+          <span class="card-label">Seu caminho</span>
+          <strong>15 minutos por dia</strong>
+          <div class="progress-bar" aria-hidden="true">
+            <span style="width: 60%"></span>
+          </div>
+          <p>Vocabulario + fala + revisao rapida</p>
+        </aside>
+      </section>
+    </header>
+
+    <main>
+      <section id="metodo" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Metodo</p>
+          <h2>Um jeito facil de aprender</h2>
+        </div>
+        <div class="method-grid">
+          <article class="method-card">
+            <span>1</span>
+            <h3>Entenda a frase</h3>
+            <p>Veja uma estrutura simples em portugues e ingles lado a lado.</p>
+          </article>
+          <article class="method-card">
+            <span>2</span>
+            <h3>Repita em voz alta</h3>
+            <p>Use o botao de audio para treinar ritmo, acento e confianca.</p>
+          </article>
+          <article class="method-card">
+            <span>3</span>
+            <h3>Pratique em contexto</h3>
+            <p>Responda perguntas curtas e revise o que errou no mesmo dia.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="licoes" class="section learning-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Licoes guiadas</p>
+          <h2>Escolha uma situacao do dia a dia</h2>
+        </div>
+
+        <div class="lesson-layout">
+          <div class="lesson-list" role="list" aria-label="Lista de licoes">
+            <button class="lesson-tab active" data-lesson="greetings" type="button">
+              Cumprimentos
+            </button>
+            <button class="lesson-tab" data-lesson="food" type="button">
+              Comida
+            </button>
+            <button class="lesson-tab" data-lesson="travel" type="button">
+              Viagem
+            </button>
+          </div>
+
+          <article class="lesson-card" aria-live="polite">
+            <div>
+              <p class="card-label" id="lessonLevel">Nivel iniciante</p>
+              <h3 id="lessonTitle">Cumprimentos</h3>
+              <p id="lessonDescription">
+                Aprenda a se apresentar e iniciar conversas simples.
+              </p>
+            </div>
+
+            <div class="phrase-box">
+              <span>Frase principal</span>
+              <strong id="mainPhrase">Hello, my name is Ana.</strong>
+              <p id="mainPhrasePt">Ola, meu nome e Ana.</p>
+              <button class="speak-button" id="speakPhrase" type="button">
+                Ouvir pronuncia
+              </button>
+            </div>
+
+            <ul class="phrase-list" id="phraseList"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="pratica" class="section practice-grid">
+        <div class="flashcard-panel">
+          <div class="section-heading compact">
+            <p class="eyebrow">Flashcards</p>
+            <h2>Memorize palavras essenciais</h2>
+          </div>
+          <div class="flashcard" id="flashcard" tabindex="0" role="button">
+            <span id="flashcardHint">Toque para traduzir</span>
+            <strong id="flashcardWord">Good morning</strong>
+            <p id="flashcardTranslation">Bom dia</p>
+          </div>
+          <div class="card-controls">
+            <button class="button secondary" id="prevCard" type="button">Anterior</button>
+            <button class="button primary" id="nextCard" type="button">Proximo</button>
+          </div>
+        </div>
+
+        <div class="quiz-panel">
+          <div class="section-heading compact">
+            <p class="eyebrow">Quiz rapido</p>
+            <h2>Complete a frase</h2>
+          </div>
+          <p class="quiz-question" id="quizQuestion">Como dizer "Eu quero agua"?</p>
+          <div class="quiz-options" id="quizOptions"></div>
+          <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section id="plano" class="section daily-plan">
+        <div class="section-heading">
+          <p class="eyebrow">Plano diario</p>
+          <h2>Estude em 4 passos</h2>
+        </div>
+        <ol class="plan-list">
+          <li><strong>3 min:</strong> leia a licao do dia e marque palavras novas.</li>
+          <li><strong>5 min:</strong> repita as frases principais em voz alta.</li>
+          <li><strong>4 min:</strong> revise flashcards ate lembrar sem olhar.</li>
+          <li><strong>3 min:</strong> faca o quiz e anote uma frase para usar hoje.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <p>Feito para aprender ingles com constancia, simplicidade e pratica.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
