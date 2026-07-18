@@ -30,6 +30,21 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000) e cole a chave da pasta `windows/CHAVE-1HORA.txt`.
 
+## iPad / iPhone (app instalável — PWA)
+
+O sistema é um PWA: dá para instalar na tela de início do iPad e usar como app (tela cheia, ícone próprio).
+
+1. No PC, rode com acesso pela rede local:
+   ```bash
+   npm run build && npm run start:lan
+   ```
+2. Descubra o IP do PC (ex.: `192.168.0.10`).
+3. No iPad, abra o **Safari** em `http://SEU_IP:3000`.
+4. Toque em **Compartilhar** → **Adicionar à Tela de Início**.
+5. Abra pelo ícone; valide a chave em `/ativar`.
+
+Requisitos: iPad e PC na mesma rede Wi-Fi. Para uso fora da rede local, hospede em um serviço (ex.: Vercel).
+
 ## Windows — executável (.exe)
 
 Gere o pacote:
