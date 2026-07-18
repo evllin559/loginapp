@@ -32,6 +32,12 @@ yarn-error.log*
 /data/*.db-journal
 /data/*.db-shm
 /data/*.db-wal
+/data/*.json
+
+# windows build artifacts
+/.cache/
+/dist/
+*.exe
 
 # typescript
 *.tsbuildinfo

@@ -30,13 +30,24 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000) e cole a chave da pasta `windows/CHAVE-1HORA.txt`.
 
-## Windows (trial 1 hora)
+## Windows — executável (.exe)
 
-1. Rode `windows\GERAR-CHAVE-1HORA.bat` — gera **uma chave** válida por **1 hora**
-2. Rode `windows\INICIAR.bat` — inicia o sistema
-3. Cole a chave na tela de ativação
+Gere o pacote:
 
-Após 1 hora a chave expira e o acesso é bloqueado. Gere outra com o mesmo bat ou `npm run key:generate`.
+```bash
+npm run build:windows
+```
+
+Saída:
+- `dist/ProspeccaoWhatsApp-Windows/ProspeccaoWhatsApp.exe`
+- `dist/ProspeccaoWhatsApp-Windows.zip`
+
+No PC Windows:
+1. Extraia o ZIP
+2. Abra `ProspeccaoWhatsApp.exe`
+3. Cole a chave de `CHAVE-1HORA.txt` (válida por **1 hora**)
+
+Não precisa instalar Node.js. Após 1 hora, gere nova chave com `npm run key:generate`.
 
 ## Configuração WhatsApp Business API
 

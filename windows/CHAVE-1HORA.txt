@@ -3,13 +3,13 @@
   Validade: 1 HORA a partir da geração
 ============================================
 
-Gerada em : 18/07/2026, 18:08:12
-Expira em : 18/07/2026, 19:08:12
-Expira ISO: 2026-07-18T19:08:12.000Z
+Gerada em : 18/07/2026, 18:11:32
+Expira em : 18/07/2026, 19:11:32
+Expira ISO: 2026-07-18T19:11:32.000Z
 
 CHAVE (copie e cole na tela de ativação):
 
-PW1H.eyJleHAiOjE3ODQ0MDE2OTIsImlhdCI6MTc4NDM5ODA5MiwicGxhbiI6InRyaWFsLTFoIn0.Xz0MV5rD15yweQXtXgbEcJQSjYuf4L1Iaw3rIIygvSU
+PW1H.eyJleHAiOjE3ODQ0MDE4OTIsImlhdCI6MTc4NDM5ODI5MiwicGxhbiI6InRyaWFsLTFoIn0.5CadjmhWadBfnI0EZNaoIZ62Uy8Vs5yo3sAfBxrzR-Y
 
 --------------------------------------------
 Instruções:

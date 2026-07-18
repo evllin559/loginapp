@@ -1,4 +1,3 @@
-import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 
@@ -38,57 +37,61 @@ export interface MessageLog {
   created_at: string;
 }
 
-const dataDir = path.join(process.cwd(), "data");
-const dbPath = path.join(dataDir, "prospeccao.db");
-
-let db: Database.Database | null = null;
-
-function getDb(): Database.Database {
-  if (!db) {
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-    db = new Database(dbPath);
-    db.pragma("journal_mode = WAL");
-    initSchema(db);
-  }
-  return db;
+interface DbShape {
+  prospects: Prospect[];
+  message_logs: MessageLog[];
+  nextProspectId: number;
+  nextMessageId: number;
 }
 
-function initSchema(database: Database.Database) {
-  database.exec(`
-    CREATE TABLE IF NOT EXISTS prospects (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT NOT NULL,
-      empresa TEXT NOT NULL,
-      telefone TEXT NOT NULL,
-      email TEXT,
-      endereco TEXT NOT NULL,
-      cidade TEXT NOT NULL,
-      estado TEXT NOT NULL,
-      latitude REAL,
-      longitude REAL,
-      segmento TEXT,
-      status TEXT NOT NULL DEFAULT 'novo',
-      observacoes TEXT,
-      created_at TEXT NOT NULL DEFAULT (datetime('now')),
-      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
+const dataDir = path.join(process.cwd(), "data");
+const dbPath = path.join(dataDir, "prospeccao.json");
 
-    CREATE TABLE IF NOT EXISTS message_logs (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      prospect_id INTEGER NOT NULL,
-      mensagem TEXT NOT NULL,
-      status TEXT NOT NULL DEFAULT 'pendente',
-      whatsapp_message_id TEXT,
-      erro TEXT,
-      created_at TEXT NOT NULL DEFAULT (datetime('now')),
-      FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
-    );
+let cache: DbShape | null = null;
 
-    CREATE INDEX IF NOT EXISTS idx_prospects_status ON prospects(status);
-    CREATE INDEX IF NOT EXISTS idx_prospects_coords ON prospects(latitude, longitude);
-  `);
+function emptyDb(): DbShape {
+  return {
+    prospects: [],
+    message_logs: [],
+    nextProspectId: 1,
+    nextMessageId: 1,
+  };
+}
+
+function loadDb(): DbShape {
+  if (cache) return cache;
+
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+
+  if (!fs.existsSync(dbPath)) {
+    cache = emptyDb();
+    saveDb(cache);
+    return cache;
+  }
+
+  try {
+    const raw = fs.readFileSync(dbPath, "utf8");
+    cache = JSON.parse(raw) as DbShape;
+    return cache;
+  } catch {
+    cache = emptyDb();
+    saveDb(cache);
+    return cache;
+  }
+}
+
+function saveDb(db: DbShape) {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), "utf8");
+  cache = db;
+}
+
+function nowIso() {
+  return new Date().toISOString();
 }
 
 export function listProspects(filters?: {
@@ -96,73 +99,69 @@ export function listProspects(filters?: {
   cidade?: string;
   segmento?: string;
 }): Prospect[] {
-  const database = getDb();
-  let query = "SELECT * FROM prospects WHERE 1=1";
-  const params: (string | number)[] = [];
+  let items = [...loadDb().prospects];
 
   if (filters?.status) {
-    query += " AND status = ?";
-    params.push(filters.status);
+    items = items.filter((p) => p.status === filters.status);
   }
   if (filters?.cidade) {
-    query += " AND cidade LIKE ?";
-    params.push(`%${filters.cidade}%`);
+    const q = filters.cidade.toLowerCase();
+    items = items.filter((p) => p.cidade.toLowerCase().includes(q));
   }
   if (filters?.segmento) {
-    query += " AND segmento LIKE ?";
-    params.push(`%${filters.segmento}%`);
+    const q = filters.segmento.toLowerCase();
+    items = items.filter((p) => (p.segmento || "").toLowerCase().includes(q));
   }
 
-  query += " ORDER BY updated_at DESC";
-  return database.prepare(query).all(...params) as Prospect[];
+  return items.sort((a, b) => b.updated_at.localeCompare(a.updated_at));
 }
 
 export function getProspect(id: number): Prospect | undefined {
-  const database = getDb();
-  return database.prepare("SELECT * FROM prospects WHERE id = ?").get(id) as
-    | Prospect
-    | undefined;
+  return loadDb().prospects.find((p) => p.id === id);
 }
 
 export function createProspect(
   data: Omit<Prospect, "id" | "created_at" | "updated_at">
 ): Prospect {
-  const database = getDb();
-  const stmt = database.prepare(`
-    INSERT INTO prospects (nome, empresa, telefone, email, endereco, cidade, estado, latitude, longitude, segmento, status, observacoes)
-    VALUES (@nome, @empresa, @telefone, @email, @endereco, @cidade, @estado, @latitude, @longitude, @segmento, @status, @observacoes)
-  `);
-  const result = stmt.run(data);
-  return getProspect(Number(result.lastInsertRowid))!;
+  const db = loadDb();
+  const stamp = nowIso();
+  const prospect: Prospect = {
+    ...data,
+    id: db.nextProspectId++,
+    created_at: stamp,
+    updated_at: stamp,
+  };
+  db.prospects.push(prospect);
+  saveDb(db);
+  return prospect;
 }
 
 export function updateProspect(
   id: number,
   data: Partial<Omit<Prospect, "id" | "created_at" | "updated_at">>
 ): Prospect | undefined {
-  const existing = getProspect(id);
-  if (!existing) return undefined;
+  const db = loadDb();
+  const idx = db.prospects.findIndex((p) => p.id === id);
+  if (idx < 0) return undefined;
 
-  const merged = { ...existing, ...data, updated_at: new Date().toISOString() };
-  const database = getDb();
-  database
-    .prepare(`
-      UPDATE prospects SET
-        nome = @nome, empresa = @empresa, telefone = @telefone, email = @email,
-        endereco = @endereco, cidade = @cidade, estado = @estado,
-        latitude = @latitude, longitude = @longitude, segmento = @segmento,
-        status = @status, observacoes = @observacoes, updated_at = @updated_at
-      WHERE id = @id
-    `)
-    .run({ ...merged, id });
-
-  return getProspect(id);
+  db.prospects[idx] = {
+    ...db.prospects[idx],
+    ...data,
+    id,
+    updated_at: nowIso(),
+  };
+  saveDb(db);
+  return db.prospects[idx];
 }
 
 export function deleteProspect(id: number): boolean {
-  const database = getDb();
-  const result = database.prepare("DELETE FROM prospects WHERE id = ?").run(id);
-  return result.changes > 0;
+  const db = loadDb();
+  const before = db.prospects.length;
+  db.prospects = db.prospects.filter((p) => p.id !== id);
+  db.message_logs = db.message_logs.filter((m) => m.prospect_id !== id);
+  if (db.prospects.length === before) return false;
+  saveDb(db);
+  return true;
 }
 
 export function findProspectsNearby(
@@ -170,7 +169,9 @@ export function findProspectsNearby(
   lng: number,
   radiusKm: number
 ): (Prospect & { distancia_km: number })[] {
-  const prospects = listProspects().filter((p) => p.latitude != null && p.longitude != null);
+  const prospects = listProspects().filter(
+    (p) => p.latitude != null && p.longitude != null
+  );
 
   return prospects
     .map((p) => ({
@@ -202,33 +203,25 @@ export function createMessageLog(data: {
   whatsapp_message_id?: string | null;
   erro?: string | null;
 }): MessageLog {
-  const database = getDb();
-  const result = database
-    .prepare(`
-      INSERT INTO message_logs (prospect_id, mensagem, status, whatsapp_message_id, erro)
-      VALUES (@prospect_id, @mensagem, @status, @whatsapp_message_id, @erro)
-    `)
-    .run({
-      prospect_id: data.prospect_id,
-      mensagem: data.mensagem,
-      status: data.status,
-      whatsapp_message_id: data.whatsapp_message_id ?? null,
-      erro: data.erro ?? null,
-    });
-
-  return database
-    .prepare("SELECT * FROM message_logs WHERE id = ?")
-    .get(result.lastInsertRowid) as MessageLog;
+  const db = loadDb();
+  const log: MessageLog = {
+    id: db.nextMessageId++,
+    prospect_id: data.prospect_id,
+    mensagem: data.mensagem,
+    status: data.status,
+    whatsapp_message_id: data.whatsapp_message_id ?? null,
+    erro: data.erro ?? null,
+    created_at: nowIso(),
+  };
+  db.message_logs.push(log);
+  saveDb(db);
+  return log;
 }
 
 export function listMessageLogs(prospectId?: number): MessageLog[] {
-  const database = getDb();
-  if (prospectId) {
-    return database
-      .prepare("SELECT * FROM message_logs WHERE prospect_id = ? ORDER BY created_at DESC")
-      .all(prospectId) as MessageLog[];
-  }
-  return database
-    .prepare("SELECT * FROM message_logs ORDER BY created_at DESC LIMIT 100")
-    .all() as MessageLog[];
+  const logs = [...loadDb().message_logs];
+  const filtered = prospectId
+    ? logs.filter((l) => l.prospect_id === prospectId)
+    : logs;
+  return filtered.sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 100);
 }
