@@ -17,6 +17,20 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-body), "Segoe UI", sans-serif;
+  /* iPad: respeita área segura (notch / barra de status) */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+}
+
+/* Evita seleção acidental em toques longos no iPad, mantém em inputs */
+button,
+.leaflet-container {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .leaflet-container {
