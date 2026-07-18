@@ -1,0 +1,244 @@
+:root {
+  --ink: #14201c;
+  --muted: #4d5f57;
+  --paper: rgba(247, 243, 233, 0.88);
+  --line: rgba(20, 32, 28, 0.12);
+  --accent: #0f6b4c;
+  --accent-deep: #0a4734;
+  --danger: #9b2c2c;
+  --glow: #d8f3e4;
+  --shadow: 0 24px 60px rgba(12, 28, 22, 0.22);
+  --radius: 22px;
+  --font: "DM Sans", sans-serif;
+  --display: "Fraunces", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font);
+  color: var(--ink);
+  background: #0d1713;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(47, 168, 120, 0.35), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(214, 168, 74, 0.28), transparent 30%),
+    radial-gradient(circle at 70% 80%, rgba(38, 102, 84, 0.45), transparent 40%),
+    linear-gradient(160deg, #102019 0%, #1a2e26 45%, #0d1713 100%);
+  z-index: -1;
+}
+
+.shell {
+  width: min(560px, 100%);
+  display: grid;
+  gap: 16px;
+  animation: rise 700ms ease both;
+}
+
+.brand {
+  padding: 8px 6px 4px;
+}
+
+.logo {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  letter-spacing: -0.04em;
+  color: #f7f3e9;
+}
+
+.tag {
+  margin: 6px 0 0;
+  color: rgba(247, 243, 233, 0.72);
+  font-size: 0.98rem;
+}
+
+.panel {
+  background: var(--paper);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  animation: rise 800ms ease both;
+}
+
+.panel.secondary {
+  background: rgba(247, 243, 233, 0.78);
+}
+
+h1, h2 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  letter-spacing: -0.03em;
+}
+
+h1 { font-size: 1.7rem; }
+h2 { font-size: 1.2rem; }
+
+.lead {
+  margin: 0 0 20px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.lead.small, .small {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+form {
+  display: grid;
+  gap: 10px;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font: inherit;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--ink);
+}
+
+input:focus {
+  outline: 2px solid rgba(15, 107, 76, 0.35);
+  border-color: var(--accent);
+}
+
+button {
+  border: 0;
+  border-radius: 14px;
+  padding: 13px 18px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(180deg, #14845f, var(--accent-deep));
+  color: #f4fff9;
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+button:active { transform: translateY(0); }
+
+button.ghost {
+  background: transparent;
+  color: var(--accent-deep);
+  border: 1px solid rgba(15, 107, 76, 0.28);
+}
+
+button.compact {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+
+.msg {
+  margin: 12px 0 0;
+  font-size: 0.92rem;
+}
+
+.msg.error { color: var(--danger); }
+
+.timer {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--glow), rgba(255, 255, 255, 0.55));
+  margin-bottom: 18px;
+}
+
+.timer-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+#countdown {
+  font-family: var(--display);
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  letter-spacing: -0.03em;
+}
+
+.meta {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.meta div {
+  display: grid;
+  gap: 4px;
+}
+
+.meta dt {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.meta dd {
+  margin: 0;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.generated {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px dashed rgba(15, 107, 76, 0.35);
+  animation: fade 300ms ease both;
+}
+
+.generated code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 520px) {
+  .panel { padding: 22px 18px; }
+  .row { flex-direction: column; align-items: stretch; }
+}

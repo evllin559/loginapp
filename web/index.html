@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoginApp — Chave de 1 hora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <main class="shell">
+    <header class="brand">
+      <p class="logo">LoginApp</p>
+      <p class="tag">Acesso por chave temporária · válida por 1 hora</p>
+    </header>
+
+    <section id="panel-locked" class="panel">
+      <h1>Entrar com sua chave</h1>
+      <p class="lead">Cole a chave gerada pelo administrador. O acesso expira automaticamente em 60 minutos.</p>
+      <form id="login-form">
+        <label for="key-input">Chave de acesso</label>
+        <input id="key-input" name="key" autocomplete="off" spellcheck="false" placeholder="LOGIN-XXXX-XXXX-XXXX-XXXX" required />
+        <button type="submit">Ativar acesso</button>
+      </form>
+      <p id="login-error" class="msg error" hidden></p>
+    </section>
+
+    <section id="panel-active" class="panel" hidden>
+      <h1>Acesso liberado</h1>
+      <p class="lead">Sessão ativa. Quando o tempo zerar, o sistema bloqueia automaticamente.</p>
+      <div class="timer" aria-live="polite">
+        <span class="timer-label">Tempo restante</span>
+        <strong id="countdown">--:--</strong>
+      </div>
+      <dl class="meta">
+        <div><dt>Chave</dt><dd id="active-key">—</dd></div>
+        <div><dt>Expira em</dt><dd id="active-expires">—</dd></div>
+      </dl>
+      <button id="logout-btn" type="button" class="ghost">Encerrar sessão</button>
+    </section>
+
+    <section class="panel secondary">
+      <div class="row">
+        <h2>Gerar chave (admin)</h2>
+        <button id="generate-btn" type="button" class="ghost">Gerar agora</button>
+      </div>
+      <p class="lead small">Cada chave nasce válida por exatamente 1 hora a partir da geração.</p>
+      <div id="generated" class="generated" hidden>
+        <code id="generated-key"></code>
+        <button id="copy-btn" type="button" class="ghost compact">Copiar</button>
+        <p id="generated-meta" class="small"></p>
+      </div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

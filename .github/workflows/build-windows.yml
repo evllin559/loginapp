@@ -1,0 +1,22 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: ["main", "cursor/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+      - name: Build LoginApp.exe
+        run: bash scripts/build-windows.sh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LoginApp-windows
+          path: dist/LoginApp.exe
