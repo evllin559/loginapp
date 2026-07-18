@@ -1,0 +1,20 @@
+============================================
+  PROSPECÇÃO WHATSAPP — CHAVE WINDOWS
+  Validade: 1 HORA a partir da geração
+============================================
+
+Gerada em : 18/07/2026, 18:08:12
+Expira em : 18/07/2026, 19:08:12
+Expira ISO: 2026-07-18T19:08:12.000Z
+
+CHAVE (copie e cole na tela de ativação):
+
+PW1H.eyJleHAiOjE3ODQ0MDE2OTIsImlhdCI6MTc4NDM5ODA5MiwicGxhbiI6InRyaWFsLTFoIn0.Xz0MV5rD15yweQXtXgbEcJQSjYuf4L1Iaw3rIIygvSU
+
+--------------------------------------------
+Instruções:
+1. Execute INICIAR.bat
+2. Abra http://localhost:3000
+3. Cole a chave acima na tela de ativação
+4. Após 1 hora a chave expira e o acesso é bloqueado
+============================================

@@ -24,10 +24,19 @@ Sistema de prospecção de clientes com **geolocalização de empresas** e **env
 ```bash
 npm install
 npm run db:seed   # dados de exemplo (opcional)
+npm run key:generate   # gera chave Windows de 1 hora
 npm run dev
 ```
 
-Acesse [http://localhost:3000](http://localhost:3000)
+Acesse [http://localhost:3000](http://localhost:3000) e cole a chave da pasta `windows/CHAVE-1HORA.txt`.
+
+## Windows (trial 1 hora)
+
+1. Rode `windows\GERAR-CHAVE-1HORA.bat` — gera **uma chave** válida por **1 hora**
+2. Rode `windows\INICIAR.bat` — inicia o sistema
+3. Cole a chave na tela de ativação
+
+Após 1 hora a chave expira e o acesso é bloqueado. Gere outra com o mesmo bat ou `npm run key:generate`.
 
 ## Configuração WhatsApp Business API
 
