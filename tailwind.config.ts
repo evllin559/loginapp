@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-body)", "Segoe UI", "sans-serif"],
+        display: ["var(--font-display)", "Segoe UI", "sans-serif"],
+      },
       colors: {
         brand: {
           50: "#ecfdf5",
