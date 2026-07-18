@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LoginApp — Chave de 1 hora</title>
+  <title>LoginApp — Chave de 50 minutos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -14,12 +14,12 @@
   <main class="shell">
     <header class="brand">
       <p class="logo">LoginApp</p>
-      <p class="tag">Acesso por chave temporária · válida por 1 hora</p>
+      <p class="tag">Acesso por chave temporária · válida por 50 minutos</p>
     </header>
 
     <section id="panel-locked" class="panel">
       <h1>Entrar com sua chave</h1>
-      <p class="lead">Cole a chave gerada pelo administrador. O acesso expira automaticamente em 60 minutos.</p>
+      <p class="lead">Cole a chave gerada pelo administrador. O acesso expira automaticamente em 50 minutos.</p>
       <form id="login-form">
         <label for="key-input">Chave de acesso</label>
         <input id="key-input" name="key" autocomplete="off" spellcheck="false" placeholder="LOGIN-XXXX-XXXX-XXXX-XXXX" required />
@@ -47,7 +47,7 @@
         <h2>Gerar chave (admin)</h2>
         <button id="generate-btn" type="button" class="ghost">Gerar agora</button>
       </div>
-      <p class="lead small">Cada chave nasce válida por exatamente 1 hora a partir da geração.</p>
+      <p class="lead small">Cada chave nasce válida por exatamente 50 minutos a partir da geração.</p>
       <div id="generated" class="generated" hidden>
         <code id="generated-key"></code>
         <button id="copy-btn" type="button" class="ghost compact">Copiar</button>

@@ -18,8 +18,8 @@ func TestGenerateAndValidate(t *testing.T) {
 	if !strings.HasPrefix(key, "LOGIN-") {
 		t.Fatalf("unexpected key prefix: %s", key)
 	}
-	if !expires.Equal(issued.Add(time.Hour)) {
-		t.Fatalf("expected 1h validity, got %v -> %v", issued, expires)
+	if !expires.Equal(issued.Add(50 * time.Minute)) {
+		t.Fatalf("expected 50m validity, got %v -> %v", issued, expires)
 	}
 
 	info, err := m.Validate(key)
@@ -41,7 +41,7 @@ func TestExpiredKey(t *testing.T) {
 		t.Fatalf("generate: %v", err)
 	}
 
-	m.now = func() time.Time { return start.Add(time.Hour + time.Second) }
+	m.now = func() time.Time { return start.Add(50*time.Minute + time.Second) }
 	_, err = m.Validate(key)
 	if err != ErrExpired {
 		t.Fatalf("expected ErrExpired, got %v", err)
@@ -54,7 +54,15 @@ func TestTamperedKey(t *testing.T) {
 	if err != nil {
 		t.Fatalf("generate: %v", err)
 	}
-	tampered := key[:len(key)-1] + "Z"
+	// Inverte um caractere do meio da assinatura (após o prefixo LOGIN-)
+	runes := []rune(key)
+	mid := len(runes) / 2
+	if runes[mid] == 'A' {
+		runes[mid] = 'B'
+	} else {
+		runes[mid] = 'A'
+	}
+	tampered := string(runes)
 	_, err = m.Validate(tampered)
 	if err != ErrBadSignature && err != ErrInvalidFormat {
 		t.Fatalf("expected bad signature/format, got %v", err)

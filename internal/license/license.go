@@ -13,7 +13,7 @@ import (
 
 const (
 	// Validity is how long a generated key remains usable.
-	Validity = time.Hour
+	Validity = 50 * time.Minute
 	// Prefix helps users recognize app keys.
 	Prefix = "LOGIN"
 )
@@ -65,7 +65,7 @@ type Info struct {
 	Valid     bool      `json:"valid"`
 }
 
-// Validate checks signature and 1-hour window.
+// Validate checks signature and 50-minute window.
 func (m *Manager) Validate(key string) (*Info, error) {
 	normalized := strings.ToUpper(strings.ReplaceAll(strings.TrimSpace(key), "-", ""))
 	normalized = strings.TrimPrefix(normalized, Prefix)

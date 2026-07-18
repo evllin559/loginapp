@@ -66,7 +66,7 @@ func main() {
 	url := "http://" + addr + "/"
 
 	fmt.Println("LoginApp iniciado")
-	fmt.Println("Chaves válidas por 1 hora")
+	fmt.Println("Chaves válidas por 50 minutos")
 	fmt.Println("Abra no navegador:", url)
 	fmt.Println("Pressione Ctrl+C para encerrar")
 
@@ -154,7 +154,7 @@ func (s *server) handleGenerate(w http.ResponseWriter, r *http.Request) {
 		"key":       key,
 		"issuedAt":  issued,
 		"expiresAt": expires,
-		"validity":  "1h",
+		"validity":  "50m",
 	})
 }
 
@@ -207,7 +207,7 @@ func sessionPath() string {
 func humanError(err error) string {
 	switch {
 	case errors.Is(err, license.ErrExpired):
-		return "Esta chave já expirou (validade de 1 hora)."
+		return "Esta chave já expirou (validade de 50 minutos)."
 	case errors.Is(err, license.ErrBadSignature):
 		return "Chave inválida."
 	case errors.Is(err, license.ErrInvalidFormat):

@@ -62,7 +62,7 @@ function startTicker() {
       tickTimer = null;
       await fetch("/api/logout", { method: "POST" });
       setLocked();
-      showError("A chave expirou. Gere ou use outra chave válida por 1 hora.");
+      showError("A chave expirou. Gere ou use outra chave válida por 50 minutos.");
     }
   };
   update();

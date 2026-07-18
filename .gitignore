@@ -5,3 +5,8 @@ session.json
 .DS_Store
 .idea/
 .vscode/
+node_modules/
+.next/
+data/
+.cache/
+next-env.d.ts
